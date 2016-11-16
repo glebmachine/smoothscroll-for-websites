@@ -111,20 +111,12 @@ function init() {
             (body.offsetHeight <= windowHeight || 
              html.offsetHeight <= windowHeight)) {
 
-        var fullPageElem = document.createElement('div');
-        fullPageElem.style.cssText = 'position:absolute; z-index:-10000; ' +
-                                     'top:0; left:0; right:0; height:' + 
-                                      root.scrollHeight + 'px';
-        document.body.appendChild(fullPageElem);
-        
         // DOM changed (throttled) to fix height
         var pendingRefresh;
         refreshSize = function () {
             if (pendingRefresh) return; // could also be: clearTimeout(pendingRefresh);
             pendingRefresh = setTimeout(function () {
                 if (isExcluded) return; // could be running after cleanup
-                fullPageElem.style.height = '0';
-                fullPageElem.style.height = root.scrollHeight + 'px';
                 pendingRefresh = null;
             }, 500); // act rarely to stay fast
         };
